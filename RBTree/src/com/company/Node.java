@@ -5,14 +5,15 @@ public class Node  <T extends Comparable<T>, V>implements INode {
     V value;
     INode parent;
     INode left , right ;
-    boolean color = RED;
+    boolean color;
 
-    public Node(T key, V value) {
+    public Node(T key, V value,boolean color) {
         this.key = key;
         this.value = value;
         this.parent = null;
         this.left = null;
         this.right = null;
+        this.color = color ;
     }
 
     @Override
@@ -28,6 +29,7 @@ public class Node  <T extends Comparable<T>, V>implements INode {
     @Override
     public void setLeftChild(INode leftChild) {
         this.left=leftChild;
+        leftChild.setParent(this);
     }
 
     @Override
@@ -38,6 +40,7 @@ public class Node  <T extends Comparable<T>, V>implements INode {
     @Override
     public void setRightChild(INode rightChild) {
         this.right=rightChild;
+        rightChild.setParent(this);
     }
 
     @Override
