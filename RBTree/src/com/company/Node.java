@@ -15,7 +15,6 @@ public class Node  <T extends Comparable<T>, V>implements INode {
         this.right = null;
         this.color = color ;
     }
-
     @Override
     public void setParent(INode parent) {
         this.parent=parent;
@@ -80,6 +79,6 @@ public class Node  <T extends Comparable<T>, V>implements INode {
 
     @Override
     public boolean isNull() {
-       return this.key==null ;
+      return this.key==null;
     }
 }
