@@ -28,9 +28,9 @@ public class RBTree implements IRedBlackTree {
         return false;
     }
 
-    public void leftRotate (Node x){
+    public void leftRotate (INode x){
         //node x is the parent of node y and y is the right child of x
-        Node y = (Node) x.getRightChild();
+        INode y = x.getRightChild();
 
         x.setRightChild(y.getLeftChild());
         if(!y.getLeftChild().isNull())
@@ -52,9 +52,9 @@ public class RBTree implements IRedBlackTree {
         x.setParent(y);
     }
 
-    public void rightRotate(Node x){
+    public void rightRotate(INode x){
         //node x is the parent of node y and y is the left child of x
-        Node y = (Node) x.getLeftChild();
+        INode y = (Node) x.getLeftChild();
 
         x.setLeftChild(y.getRightChild());
         if(!y.getRightChild().isNull())
