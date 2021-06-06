@@ -1,8 +1,7 @@
 package com.company;
 
-public class RBTree implements IRedBlackTree {
+public class RBTree  <T extends Comparable<T>, V>implements IRedBlackTree {
     INode root=new Node(null,null);
-
     @Override
     public INode getRoot() {
         return root;
@@ -12,7 +11,6 @@ public class RBTree implements IRedBlackTree {
     public boolean isEmpty() {
         return root.isNull();
     }
-
     @Override
     public void clear() {
         this.root=new Node(null,null);
@@ -20,62 +18,12 @@ public class RBTree implements IRedBlackTree {
 
     @Override
     public Object search(Comparable key) {
-        return null;
+        return search_helper(root,key).getKey();
     }
-
     @Override
     public boolean contains(Comparable key) {
-        return false;
+        return search(key)!=null;
     }
-
-    public void leftRotate (Node x){
-        //node x is the parent of node y and y is the right child of x
-        Node y = (Node) x.getRightChild();
-
-        x.setRightChild(y.getLeftChild());
-        if(!y.getLeftChild().isNull())
-            y.getLeftChild().setParent(x);
-
-        //make the old parent of x new parent of y
-        y.setParent(x.getParent());
-
-        //if x is the root then make y the new root
-        if (x.getParent().isNull()){
-            this.root = y ;
-        }
-        else if (x == x.getParent().getLeftChild())
-            x.getParent().setLeftChild(y);
-        else
-            x.getParent().setRightChild(y);
-
-        y.setLeftChild(x);
-        x.setParent(y);
-    }
-
-    public void rightRotate(Node x){
-        //node x is the parent of node y and y is the left child of x
-        Node y = (Node) x.getLeftChild();
-
-        x.setLeftChild(y.getRightChild());
-        if(!y.getRightChild().isNull())
-            y.getRightChild().setParent(x);
-
-        //make the old parent of x new parent of y
-        y.setParent(x.getParent());
-
-        //if x is the root then make y the new root
-        if (x.getParent().isNull()){
-            this.root = y ;
-        }
-        else if (x == x.getParent().getLeftChild())
-            x.getParent().setLeftChild(y);
-        else
-            x.getParent().setRightChild(y);
-
-        y.setRightChild(x);
-        x.setParent(y);
-    }
-
 
     @Override
     public void insert(Comparable key, Object value) {
@@ -84,7 +32,76 @@ public class RBTree implements IRedBlackTree {
 
     @Override
     public boolean delete(Comparable key) {
-        return false;
+        INode root=search_helper(this.root,key);
+        if(root==null){return false;}
+        else {
+            delete_helper(root);
+            return true;
+        }
     }
+    public INode search_helper(INode root,Comparable key){
+        if(root.isNull()||(root.getKey().compareTo(key)==0)){
+            return root;
+        }
+        if(root.getKey().compareTo(key)>0){
+            return search_helper(root.getLeftChild(),key);
+        }
+        if(root.getKey().compareTo(key)<0){
+            return search_helper(root.getRightChild(),key);
+        }
+   return null;
+    }
+    public boolean delete_helper(INode root){
+return true;
+    }
+    public void LeftR(INode y){
+        INode x=y.getParent();
+        x.setRightChild(y.getLeftChild());
+        //If the parent of x is NULL, make y as the root of the tree.
+        if(x.getParent()==null){
+            y.setLeftChild(x);
+            x.setParent(y);
+        }
+        //Else if x is the left child of it's parent, make y as the left child of x's parent.
+        else if(x.getParent().getLeftChild().equals(x)){
+            x.getParent().setLeftChild(y);
+            y.setParent(x.getParent());
+        }
+        //Else assign y as the right child of x's parent.
+        else if(x.getParent().getRightChild().equals(x)){
+            x.getParent().setRightChild(y);
+            y.setParent(x.getParent());
+        }
+        //Make y parent of x
+        //make x the left child of y
+        y.setLeftChild(x);
+        x.setParent(y);
 
+    }
+    public void RightR(INode y){
+        INode x=y.getParent();
+        x.setLeftChild(y.getRightChild());
+        //If the parent of x is NULL, make y as the root of the tree.
+        if(x.getParent()==null){
+            y.setRightChild(x);
+            x.setParent(y);
+        }
+        //Else if x is the left child of it's parent, make y as the left child of x's parent.
+        else if(x.getParent().getLeftChild().equals(x)){
+            x.getParent().setLeftChild(y);
+            y.setParent(x.getParent());
+        }
+        //Else assign y as the right child of x's parent.
+        else if(x.getParent().getRightChild().equals(x)){
+            x.getParent().setRightChild(y);
+            y.setParent(x.getParent());
+        }
+        //Make y parent of x
+        //make x the left child of y
+        y.setRightChild(x);
+        x.setParent(y);
+    }
+    public void setRoot(INode root){
+
+    }
 }
