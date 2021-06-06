@@ -1,7 +1,8 @@
 package com.company;
 
 public class RBTree implements IRedBlackTree {
-    INode root=new Node();
+    INode root=new Node(null,null);
+
     @Override
     public INode getRoot() {
         return root;
@@ -11,9 +12,10 @@ public class RBTree implements IRedBlackTree {
     public boolean isEmpty() {
         return root.isNull();
     }
+
     @Override
     public void clear() {
-        this.root=new Node();
+        this.root=new Node(null,null);
     }
 
     @Override
@@ -26,6 +28,55 @@ public class RBTree implements IRedBlackTree {
         return false;
     }
 
+    public void leftRotate (Node x){
+        //node x is the parent of node y and y is the right child of x
+        Node y = (Node) x.getRightChild();
+
+        x.setRightChild(y.getLeftChild());
+        if(!y.getLeftChild().isNull())
+            y.getLeftChild().setParent(x);
+
+        //make the old parent of x new parent of y
+        y.setParent(x.getParent());
+
+        //if x is the root then make y the new root
+        if (x.getParent().isNull()){
+            this.root = y ;
+        }
+        else if (x == x.getParent().getLeftChild())
+            x.getParent().setLeftChild(y);
+        else
+            x.getParent().setRightChild(y);
+
+        y.setLeftChild(x);
+        x.setParent(y);
+    }
+
+    public void rightRotate(Node x){
+        //node x is the parent of node y and y is the left child of x
+        Node y = (Node) x.getLeftChild();
+
+        x.setLeftChild(y.getRightChild());
+        if(!y.getRightChild().isNull())
+            y.getRightChild().setParent(x);
+
+        //make the old parent of x new parent of y
+        y.setParent(x.getParent());
+
+        //if x is the root then make y the new root
+        if (x.getParent().isNull()){
+            this.root = y ;
+        }
+        else if (x == x.getParent().getLeftChild())
+            x.getParent().setLeftChild(y);
+        else
+            x.getParent().setRightChild(y);
+
+        y.setRightChild(x);
+        x.setParent(y);
+    }
+
+
     @Override
     public void insert(Comparable key, Object value) {
 
@@ -35,4 +86,5 @@ public class RBTree implements IRedBlackTree {
     public boolean delete(Comparable key) {
         return false;
     }
+
 }

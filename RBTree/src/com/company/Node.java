@@ -1,12 +1,19 @@
 package com.company;
 
 public class Node  <T extends Comparable<T>, V>implements INode {
-        T key;
-        V value;
-        INode parent;
-        INode left;
-        INode right;
-        boolean color=true;
+    T key;
+    V value;
+    INode parent;
+    INode left , right ;
+    boolean color = RED;
+
+    public Node(T key, V value) {
+        this.key = key;
+        this.value = value;
+        this.parent = null;
+        this.left = null;
+        this.right = null;
+    }
 
     @Override
     public void setParent(INode parent) {
@@ -70,9 +77,6 @@ public class Node  <T extends Comparable<T>, V>implements INode {
 
     @Override
     public boolean isNull() {
-       if(this.key==null){
-           return true;
-       }
-       else return false;
+       return this.key==null ;
     }
 }
