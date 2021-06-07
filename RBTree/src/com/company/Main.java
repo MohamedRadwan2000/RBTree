@@ -5,37 +5,59 @@ import java.util.Scanner;
 
 public class Main {
     public static void  readTree(Node k){
-
-
         LinkedList<Node> queue = new LinkedList<Node>();
         queue.add(k);
-
+        int space = 25 ;
         while (queue.size() != 0)
         {
             LinkedList<Node> queue1 = new LinkedList<Node>();
+            for (int i = 0; i < space; i++) {
+                System.out.print(" ");
+            }
             while(queue.size() != 0){
                 Node s = queue.poll();
+
+                if (s == null){
+                    for (int i = 0; i < 10; i++) {
+                        System.out.print(" ");
+                    }
+                    continue;
+                }
+
+
                 System.out.print(s.getKey()+""+(s.getColor()?"R":"B")+" ");
-                if(s.getLeftChild() != null)
+                for (int i = 0; i < 2; i++) {
+                    System.out.print(" ");
+                }
+                if(s.getLeftChild() != null) {
                     queue1.add((Node) s.getLeftChild());
+                }
+                else
+                    queue1.add(null);
                 if (s.getRightChild() != null)
                     queue1.add((Node) s.getRightChild());
+                else
+                    queue1.add(null);
             }
-            System.out.println("\n");
+            System.out.print("\n");
             queue = queue1 ;
+            space-=2;
         }
     }
 
     public static void main(String[] args) {
-        RBTree<Integer,Integer> b = new RBTree();
-        Scanner sc=new Scanner(System.in);
-        int n=sc.nextInt();
-        for (int i = 0; i < n; i++) {
-            int c= sc.nextInt();
-            b.insert(c,1);
+        RBTree<Integer,Integer> b = new RBTree<>();
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        for (int i = 0 ; i < n ;i++){
+            int a = sc.nextInt();
+            b.insert(a,1);
         }
         readTree((Node) b.getRoot());
-        b.delete(13);
+        System.out.print("delete : ");
+        int d = sc.nextInt();
+        b.delete(d);
         readTree((Node) b.getRoot());
+
     }
 }

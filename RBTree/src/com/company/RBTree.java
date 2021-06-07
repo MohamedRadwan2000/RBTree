@@ -156,10 +156,10 @@ public class RBTree  <T extends Comparable<T>, V>implements IRedBlackTree {
             }
             else {
                 replaced_node=delete_helper(root,key);
-                if(!replaced_node.isNull()){
+               /* if(!replaced_node.isNull()){
                     replaced_node.setColor(INode.RED);
                     replaced_node.getLeftChild().setColor(INode.BLACK);
-                    replaced_node.getRightChild().setColor(INode.BLACK);}
+                    replaced_node.getRightChild().setColor(INode.BLACK);}*/
             }
             return true;
         }
@@ -188,7 +188,7 @@ public class RBTree  <T extends Comparable<T>, V>implements IRedBlackTree {
                 INode NewRoot=minValue(current.getRightChild());
                 current.setKey(NewRoot.getKey());
                 current.setValue(NewRoot.getValue());
-                current.setColor(NewRoot.getColor());
+                //current.setColor(NewRoot.getColor());
                 INode replaced_node;
                 replaced_node=delete_helper(current.getRightChild(),NewRoot.getKey());
                 fix_delete(replaced_node);
@@ -214,7 +214,7 @@ public class RBTree  <T extends Comparable<T>, V>implements IRedBlackTree {
         else {
             //case2   (deleted node is Black and the replaced Node is Black also)
             INode S=get_sibling(replaced_node);
-            if(S==null){return;}
+            if(S==null|| S.isNull()){return;}
             //case2.1: (x’s sibling S is red)
             if(S.getColor()==INode.RED){
                 //switches colors of S and its parent
