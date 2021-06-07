@@ -2,7 +2,7 @@ package com.company;
 
 public class RBTree  <T extends Comparable<T>, V>implements IRedBlackTree {
     Node root;
-
+    int size=0;
     public RBTree() {
         this.root = new Node(null,null,INode.BLACK);
     }
@@ -155,11 +155,7 @@ public class RBTree  <T extends Comparable<T>, V>implements IRedBlackTree {
                 fix_delete(replaced_node);
             }
             else {
-                replaced_node=delete_helper(root,key);
-               /* if(!replaced_node.isNull()){
-                    replaced_node.setColor(INode.RED);
-                    replaced_node.getLeftChild().setColor(INode.BLACK);
-                    replaced_node.getRightChild().setColor(INode.BLACK);}*/
+                delete_helper(root,key);
             }
             return true;
         }
@@ -168,7 +164,19 @@ public class RBTree  <T extends Comparable<T>, V>implements IRedBlackTree {
     {   //find node to be deleted
         INode current=search_helper(root,key);
         if(!current.isNull()){
-            if (current.getLeftChild().isNull()) {
+            if(current==this.getRoot()&&(current.getLeftChild().isNull()||current.getRightChild().isNull())){
+                if(current.getRightChild().isNull()){
+                    this.root= (Node) current.getLeftChild();
+                    root.setParent(null);
+                    this.root.setColor(INode.BLACK);
+                }
+                else {
+                    this.root= (Node) current.getRightChild();
+                    root.setParent(null);
+                    this.root.setColor(INode.BLACK);
+                }
+            }
+            else if (current.getLeftChild().isNull()) {
                 if (current.equals(current.getParent().getLeftChild()))
                     current.getParent().setLeftChild(current.getRightChild());
                 else {
@@ -188,7 +196,6 @@ public class RBTree  <T extends Comparable<T>, V>implements IRedBlackTree {
                 INode NewRoot=minValue(current.getRightChild());
                 current.setKey(NewRoot.getKey());
                 current.setValue(NewRoot.getValue());
-                //current.setColor(NewRoot.getColor());
                 INode replaced_node;
                 replaced_node=delete_helper(current.getRightChild(),NewRoot.getKey());
                 fix_delete(replaced_node);
@@ -210,6 +217,7 @@ public class RBTree  <T extends Comparable<T>, V>implements IRedBlackTree {
     }
     public void fix_delete(INode replaced_node){
         //case1 (deleted node is Black and has Red child)
+        if(replaced_node==null){return;}
         if (replaced_node.getColor()==INode.RED){replaced_node.setColor(INode.BLACK);}
         else {
             //case2   (deleted node is Black and the replaced Node is Black also)
