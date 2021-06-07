@@ -56,7 +56,10 @@ public class Main {
         readTree((Node) b.getRoot());
         System.out.print("delete : ");
         int d = sc.nextInt();
-        b.delete(d);
+        System.out.println(b.search(9));
+        System.out.println(b.getSize());
+        System.out.print(b.delete(d));
+        System.out.println(b.getSize());
         readTree((Node) b.getRoot());
 
     }

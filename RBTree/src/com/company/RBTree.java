@@ -22,7 +22,7 @@ public class RBTree  <T extends Comparable<T>, V>implements IRedBlackTree {
 
     @Override
     public Object search(Comparable key) {
-        return search_helper(root,key).getKey();
+        return search_helper(root,key).getValue();
     }
     @Override
     public boolean contains(Comparable key) {
@@ -40,6 +40,7 @@ public class RBTree  <T extends Comparable<T>, V>implements IRedBlackTree {
             n.setColor(INode.BLACK);
             n.setRightChild(new Node(null,null,INode.BLACK));
             n.setLeftChild(new Node(null,null,INode.BLACK));
+            size++;
             return;
         }
 
@@ -67,6 +68,7 @@ public class RBTree  <T extends Comparable<T>, V>implements IRedBlackTree {
         n.setLeftChild(new Node(null,null,INode.BLACK));
         //now the new node in it's place and we need to fix the tree
         fixInsert(n);
+        size++;
     }
 
     public void fixInsert(Node n){
@@ -157,6 +159,7 @@ public class RBTree  <T extends Comparable<T>, V>implements IRedBlackTree {
             else {
                 delete_helper(root,key);
             }
+            size--;
             return true;
         }
     }
@@ -357,7 +360,7 @@ public class RBTree  <T extends Comparable<T>, V>implements IRedBlackTree {
         y.setRightChild(x);
         x.setParent(y);
     }
-
+public int getSize(){return this.size;}
 
 
 }
