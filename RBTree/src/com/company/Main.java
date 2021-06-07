@@ -1,6 +1,7 @@
 package com.company;
 
 import java.util.LinkedList;
+import java.util.Scanner;
 
 public class Main {
     public static void  readTree(Node k){
@@ -18,7 +19,7 @@ public class Main {
                 if(s.getLeftChild() != null)
                     queue1.add((Node) s.getLeftChild());
                 if (s.getRightChild() != null)
-                queue1.add((Node) s.getRightChild());
+                    queue1.add((Node) s.getRightChild());
             }
             System.out.println("\n");
             queue = queue1 ;
@@ -27,12 +28,14 @@ public class Main {
 
     public static void main(String[] args) {
         RBTree<Integer,Integer> b = new RBTree();
-        b.insert(61,1);
-        b.insert(52,1);
-        b.insert(85,1);
-        b.insert(78,1);
-        b.insert(93,1);
-        b.insert(100,1);
+        Scanner sc=new Scanner(System.in);
+        int n=sc.nextInt();
+        for (int i = 0; i < n; i++) {
+            int c= sc.nextInt();
+            b.insert(c,1);
+        }
+        readTree((Node) b.getRoot());
+        b.delete(13);
         readTree((Node) b.getRoot());
     }
 }

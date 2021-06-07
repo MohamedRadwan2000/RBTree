@@ -54,7 +54,7 @@ public class Node  <T extends Comparable<T>, V>implements INode {
 
     @Override
     public void setKey(Comparable key) {
-    this.key=(T)key;
+        this.key=(T)key;
     }
 
     @Override
@@ -64,7 +64,7 @@ public class Node  <T extends Comparable<T>, V>implements INode {
 
     @Override
     public void setValue(Object value) {
-       this.value= (V) value;
+        this.value= (V) value;
     }
 
     @Override
@@ -79,6 +79,6 @@ public class Node  <T extends Comparable<T>, V>implements INode {
 
     @Override
     public boolean isNull() {
-      return this.key==null;
+        return this.key==null;
     }
 }
